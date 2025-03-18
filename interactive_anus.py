@@ -1,12 +1,12 @@
-from anus.core.agent.tool_agent import ToolAgent
+from anus.core.agent.hybrid_agent import HybridAgent
 import sys
 
 def create_agent():
     """Create and configure an ANUS agent with available tools"""
     print("Initializing ANUS interface...")
     
-    # Create a tool agent with multiple tools
-    agent = ToolAgent(
+    # Create a hybrid agent with multiple tools
+    agent = HybridAgent(
         name="assistant",
         max_iterations=10,
         tools=["calculator", "search", "text", "code"]
