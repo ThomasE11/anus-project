@@ -28,35 +28,21 @@ Follow these steps to install and run the ANUS project:
    pip install -e .
    ```
 
-5. **Create a configuration file**:
+5. **Set up your API keys**:
+   Create a `.env` file in the project root directory:
    ```bash
-   mkdir -p ~/.anus
-   ```
-
-6. **Edit the configuration file**:
-   Create a file at `~/.anus/config.yaml` with the following content:
-   ```yaml
-   llm:
-     provider: openai
-     api_key: YOUR_OPENAI_API_KEY
-     model: gpt-4o
-
-   # Agent settings
-   agent:
-     verbose: true
-     max_iterations: 10
-     memory: 
-       type: simple
-
-   # Tool settings
-   tools:
-     browser:
-       headless: true
-     search:
-       enabled: true
+   cp .env.example .env
    ```
    
-   Replace `YOUR_OPENAI_API_KEY` with your actual OpenAI API key.
+   Then edit the `.env` file to add your OpenAI API key:
+   ```
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
+   
+   Replace `your_openai_api_key_here` with your actual OpenAI API key.
+
+6. **Configuration**:
+   The default configuration is in `config.yaml`. You don't need to modify this file if you've set up your `.env` file correctly, as it will read the API key from your environment variables.
 
 ## Usage
 
@@ -87,10 +73,17 @@ The framework includes several tools:
 - Text - For text processing
 - Code - For code generation
 
+### Agent Modes
+
+ANUS now features a hybrid agent system that can:
+- Automatically determine if a task requires single or multi-agent processing
+- Use specialized agents for complex tasks (researcher, planner, executor, critic)
+- Adjust to task complexity
+
 ## Requirements
 
 - Python 3.11 or higher
-- OpenAI API key (for advanced functionality)
+- OpenAI API key (required for all functionality)
 
 ## Note
 
