@@ -41,6 +41,8 @@ Follow these steps to install and run the ANUS project:
    
    Replace `your_openai_api_key_here` with your actual OpenAI API key.
 
+   > **IMPORTANT**: Make sure to use the API key provided to you by your administrator.
+
 6. **Configuration**:
    The default configuration is in `config.yaml`. You don't need to modify this file if you've set up your `.env` file correctly, as it will read the API key from your environment variables.
 
