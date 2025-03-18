@@ -1,5 +1,30 @@
 from anus.core.agent.hybrid_agent import HybridAgent
 import sys
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+def load_environment():
+    """Load environment variables from .env file"""
+    # Try to load from project root directory
+    env_path = Path('.') / '.env'
+    if env_path.exists():
+        load_dotenv(dotenv_path=env_path)
+        return True
+        
+    # Try to load from parent directory if running from inside package
+    env_path = Path('..') / '.env'
+    if env_path.exists():
+        load_dotenv(dotenv_path=env_path)
+        return True
+        
+    # Try to load from user's home directory
+    env_path = Path.home() / '.anus' / '.env'
+    if env_path.exists():
+        load_dotenv(dotenv_path=env_path)
+        return True
+        
+    return False
 
 def create_agent():
     """Create and configure an ANUS agent with available tools"""
@@ -16,6 +41,17 @@ def create_agent():
 
 def interactive_mode():
     """Run ANUS in interactive mode to accept user commands"""
+    # Load environment variables
+    env_loaded = load_environment()
+    
+    # Check if OpenAI API key is available
+    if not os.environ.get("OPENAI_API_KEY"):
+        print("\nError: OpenAI API key not found in environment variables or .env file.")
+        print("Please set your API key by either:")
+        print("1. Creating a .env file in the project root with OPENAI_API_KEY=your_key")
+        print("2. Setting the OPENAI_API_KEY environment variable directly")
+        sys.exit(1)
+    
     agent = create_agent()
     
     # Print welcome message
